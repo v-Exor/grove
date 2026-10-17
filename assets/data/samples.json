@@ -1,0 +1,38 @@
+[
+  {
+    "id": "boxer_16",
+    "title": "boxer 16",
+    "url": "./assets/samples/boxer_16.jpg",
+    "mask": "./assets/samples/boxer_16-trimap.png",
+    "source": "Oxford-IIIT Pet",
+    "width": 357,
+    "height": 500,
+    "classId": 12,
+    "species": "dog",
+    "sha256": "f928e8a91117cd54add54f8266460e99a1e2a3986bc1e5cb94bfae6901f12590"
+  },
+  {
+    "id": "chihuahua_165",
+    "title": "chihuahua 165",
+    "url": "./assets/samples/chihuahua_165.jpg",
+    "mask": "./assets/samples/chihuahua_165-trimap.png",
+    "source": "Oxford-IIIT Pet",
+    "width": 300,
+    "height": 224,
+    "classId": 12,
+    "species": "dog",
+    "sha256": "491e600494eb0ea20fb1379aec59758a8dd849b48aa79ed6f4fa8072f0b249bd"
+  },
+  {
+    "id": "pug_183",
+    "title": "pug 183",
+    "url": "./assets/samples/pug_183.jpg",
+    "mask": "./assets/samples/pug_183-trimap.png",
+    "source": "Oxford-IIIT Pet",
+    "width": 279,
+    "height": 300,
+    "classId": 12,
+    "species": "dog",
+    "sha256": "1bc272afa5961db151b7c20a1d1fc87cff30ea83e23a3f745f33d233314d175f"
+  }
+]

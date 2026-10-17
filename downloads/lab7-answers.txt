@@ -1,0 +1,43 @@
+CSST106 — Laboratory Activity 7
+Segmentation Technique
+
+QUESTION
+Explain the differences between thresholding, region-based, edge-based, and semantic segmentation techniques. Provide one advantage and one limitation for each method.
+
+ANSWER
+Thresholding segmentation classifies pixels using a global or local intensity threshold. Its advantage is fast, simple foreground extraction for high-contrast images. Its limitation is confusion when foreground and background intensity distributions overlap, especially with uneven illumination under a global threshold.
+
+Region-based segmentation forms connected regions using pixel similarity or marker-guided propagation. Region growing expands from a seed; watershed uses markers to divide touching regions. Its advantage is coherent region formation and separation of touching objects with suitable markers. Its limitation is sensitivity to seed or marker placement, which can cause leakage or over-segmentation.
+
+Edge-based segmentation finds intensity changes to locate boundaries and can fill closed contours to form masks. Its advantage is clear object outlines. Its limitation is sensitivity to noise and weak or broken boundaries, which can lead to incomplete or false regions.
+
+Semantic segmentation uses a trained network to assign a supported class to each pixel. Its advantage is meaningful object categories in complex scenes. Its limitation is dependence on the training data and supported classes, together with higher computational cost. Different objects of the same class receive the same semantic label.
+
+OBSERVATIONS
+Part 1: Both thresholding methods segment the controlled shapes under uniform lighting. Under the illumination gradient, Otsu confuses illumination with object intensity while adaptive thresholding preserves the shapes.
+
+Part 2: Region growing merges the touching circles because they are connected and have the same intensity. Watershed separates the two marked object regions. Extra markers can over-segment one object.
+
+Part 3: Canny detects the combined external boundary. Filled contours recover the shared foreground region. Watershed adds an internal boundary separating the markers. Noise may create false edges; weak boundaries may be missed.
+
+Part 4: The original DeepLabV3 ResNet50 run labels the garden cat and background, with 9.46% of pixels predicted as cat. This is coverage, not accuracy. The website additionally runs the smaller DeepLabV3 MobileNetV3 model on three genuine annotated Oxford-IIIT Pet samples and on uploaded images. The two backbones can produce different outputs.
+
+RECORDED ORIGINAL FOREGROUND IOU
+Otsu, uniform lighting: 1.0000
+Adaptive, uniform lighting: 1.0000
+Otsu, uneven lighting: 0.1003
+Adaptive, uneven lighting: 1.0000
+Region growing, touching circles: 1.0000
+Watershed, touching circles: 0.9719
+Filled Canny contours, touching circles: 0.9845
+Original garden-cat semantic IoU: unavailable without ground truth.
+
+ANALYSIS
+IoU is the pixel intersection divided by the union of predicted and true masks. Foreground IoU does not evaluate whether touching objects are separated. Therefore the merged region-growing result can have perfect foreground IoU while watershed is more useful for separating the objects. The scores concern controlled examples and are not general accuracy estimates.
+
+Thresholding is useful for high-contrast documents and simple objects and has low computational cost. Region-based methods suit homogeneous areas and touching cells but require suitable seeds and markers. Edge methods support shape inspection but need noise reduction and clear boundaries. Semantic models support natural-scene understanding but require more memory and computation and may fail on unseen categories or fine details.
+
+For the annotated pet samples, evaluate the predicted pet class (dog = VOC ID 12) against foreground trimap label 1. Background is label 2 and ambiguous boundary label 3 is excluded. Report the mean of per-image foreground IoU over these three selected images, not full-dataset mean class IoU. The small subset is not a representative or verified training-disjoint benchmark.
+
+CONCLUSION
+The activity demonstrates that intensity, similarity, boundaries, and learned categories lead to different segmentation results. Adaptive thresholding handles the controlled lighting gradient; watershed separates touching objects that region growing merges. Canny highlights boundaries, and DeepLabV3 supplies class information for natural photographs. Method selection depends on image characteristics and the required output, while quantitative evaluation depends on compatible ground-truth annotations.

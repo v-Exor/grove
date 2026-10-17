@@ -1,0 +1,15 @@
+{
+  "name": "csst106-lab-07-image-segmentation",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Independent GitHub Pages laboratory with live OpenCV segmentation and real DeepLabV3 inference",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node --test tests/processing.test.mjs",
+    "test:e2e": "playwright test",
+    "package": "python scripts/package-delivery.py"
+  },
+  "devDependencies": { "@playwright/test": "1.56.0", "@axe-core/playwright": "4.14.0" }
+}

@@ -1,0 +1,12 @@
+node_modules/
+.npm-cache/
+.model-cache/
+.export-deps/
+artifacts/
+test-results/
+playwright-report/
+__pycache__/
+python/outputs/
+python/model_cache/
+dist/
+/*.zip
