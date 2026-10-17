@@ -1,6 +1,6 @@
 # Verification record — Laboratory Activity 7
 
-Validated locally on 17 October 2026 (Asia/Manila), before the user authorized GitHub publication. The authorized repository is https://github.com/v-Exor/LabAct7_CSST106 . This record describes the completed local verification; publication status is checked separately.
+Validated locally on 17 October 2026 (Asia/Manila), before the user authorized GitHub publication. The authorized repository is https://github.com/v-Exor/grove . This record describes the completed local verification; publication status is checked separately.
 
 ## Requirement audit
 
@@ -37,4 +37,4 @@ The original DeepLabV3 ResNet50 code and genuine recorded output remain intact. 
 
 All runtime, model, sample, stylesheet, script, Python, archive and manifest paths are relative. Root and `/lab-07/` previews load. The ONNX file is below the ordinary 100 MB GitHub individual-file limit. The site is below the 1 GB Pages site limit. A buildless branch deployment and an optional static GitHub Actions workflow are documented.
 
-The build and ZIP exclude environments, caches, temporary browser traces and private local material. The repository URL is configured to the authorized v-Exor/LabAct7_CSST106 repository. The compilation URL remains blank and configurable; no compilation address has been invented. All processing stays in the browser, with no server inference API, CDN dependency, analytics, or school logo.
+The build and ZIP exclude environments, caches, temporary browser traces and private local material. The repository URL is configured to the authorized v-Exor/grove repository. The compilation URL remains blank and configurable; no compilation address has been invented. All processing stays in the browser, with no server inference API, CDN dependency, analytics, or school logo.

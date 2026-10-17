@@ -1,8 +1,8 @@
 # CSST106 Laboratory Activity 7 — Image Segmentation
 
-Repository: https://github.com/v-Exor/LabAct7_CSST106
+Repository: https://github.com/v-Exor/grove
 
-GitHub Pages: https://v-exor.github.io/LabAct7_CSST106/
+GitHub Pages: https://v-exor.github.io/grove/
 
 An independent, buildless GitHub Pages website matching the existing VisionLab orange-and-white laboratory projects. This project contains **only Laboratory Activity 7**. Other laboratory directories are not required and have not been modified.
 
@@ -59,14 +59,14 @@ Replace both values with actual `https://` URLs. Do not leave these descriptive 
 After GitHub Pages publishes, add its actual URL to the Activity 7 button in your separate compilation site:
 
 ```html
-<a href="https://v-exor.github.io/LabAct7_CSST106/">
+<a href="https://v-exor.github.io/grove/">
   Open Laboratory Activity 7
 </a>
 ```
 
 ## Publish to your own GitHub repository
 
-The authorized repository is https://github.com/v-Exor/LabAct7_CSST106 . The deployment instructions below also apply to future updates or independent forks.
+The authorized repository is https://github.com/v-Exor/grove . The deployment instructions below also apply to future updates or independent forks.
 
 ### Simple option: deploy directly from a branch
 
@@ -74,7 +74,7 @@ The authorized repository is https://github.com/v-Exor/LabAct7_CSST106 . The dep
 2. Use **GitHub Desktop or Git** to commit and push this project's contents to the repository root. The 44 MB ONNX file exceeds GitHub's 25 MiB browser-upload limit, so uploading the entire project through the website's file picker will not work. `index.html`, `assets`, `downloads`, `python`, `scripts`, `site-config.js` and `styles.css` must be alongside each other. Do not nest everything inside a second `lab-07` directory.
 3. Exclude `node_modules`, `.model-cache`, `.npm-cache`, `artifacts`, `test-results`, `dist`, virtual environments and the delivery ZIP. `.gitignore` handles these when using Git.
 4. Open **Settings → Pages → Build and deployment**. Choose **Deploy from a branch**, select your default branch and **/(root)**, then save. For this option, omit `.github/workflows/pages.yml` from the upload; it is supplied for the Actions alternative below.
-5. Open the URL GitHub reports. Its usual project-site format is `https://v-exor.github.io/LabAct7_CSST106/`. Add that actual URL to the main compilation website.
+5. Open the URL GitHub reports. Its usual project-site format is `https://v-exor.github.io/grove/`. Add that actual URL to the main compilation website.
 
 The `.nojekyll` file is included. All paths are relative; no SPA router or domain-specific base path is required. Every individual file is below GitHub's 100 MiB ordinary Git file limit, including the approximately 44 MB ONNX model. The browser file picker has a separate 25 MiB limit, which is why GitHub Desktop/Git is required for the complete project. Published static content is well below the 1 GB Pages site limit. Do not upload the original 160 MB ResNet50 checkpoint or Python environment. Do not use Git LFS pointers for the browser model. The downloadable ZIPs under `downloads/` must be committed as regular files; the supplied `.gitignore` permits them.
 
