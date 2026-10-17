@@ -141,13 +141,15 @@ async function evaluateDataset(){
   finally{busy(4,false);$('#download-evaluation').disabled=!state.evaluation;$('#download-semantic').disabled=!state.semantic?.result;$('#download-labels').disabled=!state.semantic?.result;}
 }
 
-// Navigation and real configurable destinations.
-let links={...window.LAB_CONFIG};try{links={...links,...JSON.parse(localStorage.getItem('visionlab7-links')||'{}')};}catch{}
-function openLinks(){for(const [id,key] of [['#compilation-url','compilationUrl'],['#repository-url','repositoryUrl']])$(id).value=links[key]||'';$('#links-error').hidden=true;$('#links-dialog').showModal();}
-function validURL(value){if(!value)return '';const url=new URL(value);if(!['https:','http:'].includes(url.protocol))throw Error('Use an https:// or http:// address.');return url.href;}
-all('[data-destination]').forEach(button=>button.addEventListener('click',()=>{const key=button.dataset.destination==='compilation'?'compilationUrl':'repositoryUrl';if(!links[key]){openLinks();return;}try{window.location.assign(validURL(links[key]));}catch{openLinks();$('#links-error').textContent='The configured link is invalid. Enter a valid web address.';$('#links-error').hidden=false;}}));
-$('#configure-links').addEventListener('click',openLinks);$('#close-links').addEventListener('click',()=>$('#links-dialog').close());
-$('#links-form').addEventListener('submit',event=>{event.preventDefault();try{links={compilationUrl:validURL($('#compilation-url').value.trim()),repositoryUrl:validURL($('#repository-url').value.trim())};let saved=true;try{localStorage.setItem('visionlab7-links',JSON.stringify(links));}catch{saved=false;}$('#links-dialog').close();toast(saved?'Links saved in this browser. Set published defaults in site-config.js.':'Links applied for this visit. Browser storage is unavailable.');}catch(error){$('#links-error').textContent=error.message;$('#links-error').hidden=false;}});
+// Public navigation exposes the compilation destination only.
+document.querySelectorAll('[data-destination="compilation"]').forEach(button => button.addEventListener('click', () => {
+  try {
+    const url = new URL(window.LAB_CONFIG?.compilationUrl || '');
+    if (!['https:', 'http:'].includes(url.protocol) || url.username || url.password) throw new Error('Invalid compilation address.');
+    window.location.assign(url.href);
+  } catch { toast('The compilation link is not configured.'); }
+}));
+
 $('#menu-toggle').addEventListener('click',()=>{const open=$('#menu-toggle').getAttribute('aria-expanded')!=='true';$('#menu-toggle').setAttribute('aria-expanded',String(open));$('#main-nav').classList.toggle('open',open);$('#menu-toggle').setAttribute('aria-label',open?'Close navigation':'Open navigation');});
 all('#main-nav a').forEach(link=>link.addEventListener('click',()=>{$('#main-nav').classList.remove('open');$('#menu-toggle').setAttribute('aria-expanded','false');$('#menu-toggle').setAttribute('aria-label','Open navigation');}));
 document.addEventListener('keydown',event=>{if(event.key==='Escape'){$('#main-nav').classList.remove('open');$('#menu-toggle').setAttribute('aria-expanded','false');$('#menu-toggle').setAttribute('aria-label','Open navigation');}});
@@ -181,7 +183,6 @@ $('#download-labels').addEventListener('click',()=>{const s=state.semantic;const
 $('#evaluate-dataset').addEventListener('click',evaluateDataset);$('#download-evaluation').addEventListener('click',()=>downloadJSON(state.evaluation,'lab7-dataset-evaluation.json'));
 
 async function initialize(){
-  for(const node of all('[data-python]')){try{const response=await fetch(`./python/${node.dataset.python}`);if(!response.ok)throw Error();node.textContent=await response.text();}catch{node.textContent='Source preview unavailable. Use the Python download link below.';}}
   const [model,references]=await Promise.all([json('./assets/models/manifest.json'),json('./assets/data/semantic-reference.json')]);state.model={...model,url:new URL(model.url,location.href).href};state.samples=references;
   $('#semantic-source').replaceChildren(...references.map(sample=>{const option=document.createElement('option');option.value=sample.id;option.textContent=sample.mask?`Oxford Pet · ${sample.title}`:'Pinterest · garden cat';return option;}));
   $('#semantic-reference-gallery').replaceChildren(...references.filter(x=>x.mask).map(sample=>{const figure=document.createElement('figure');const image=document.createElement('img');image.src=sample.overlay;image.alt=`Saved MobileNetV3 prediction for ${sample.title}`;image.width=400;image.height=300;image.loading='lazy';const caption=document.createElement('figcaption'),title=document.createElement('strong');title.textContent=sample.title;const p=document.createElement('p');p.textContent=`Recorded pet foreground IoU: ${sample.foregroundIoU.toFixed(4)} · boundary pixels excluded.`;const links=document.createElement('div');links.className='toolbar';for(const [text,url] of [['Original',sample.url],['Prediction',sample.classes],['Ground truth',sample.truthPreview]]){const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.className='text-button';a.textContent=text;links.append(a);}caption.append(title,p,links);figure.append(image,caption);return figure;}));
